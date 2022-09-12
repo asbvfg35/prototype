@@ -1,170 +1,85 @@
-'use strict';
+"use strict";
 
-console.dir(function () { });
+let obj = {};
+console.log(obj);
+// alert(obj);
+let arr = [1, 2, 3];
+console.dir(arr);
+console.log(arr.__proto__.__proto__);
+console.log(arr.__proto__.__proto__.__proto__);
 
 function f() { }
-console.log(f.__proto__ == Function.prototype);
-console.log(f.__proto__.__proto__ == Object.prototype);
-let obj = {
+console.log(f);
+console.log(f.__proto__);
+console.log(f.__proto__.__proto__);
+console.log(f.__proto__.__proto__.__proto__);
 
+let y = {
+  null: 5,
+  undefined: 100000
 };
-console.log(obj.__proto__);
-let animal = {
-  walk() {
-    if (!this.isSleeping) {
-      console.log(`I walk`);
-    }
-  },
-  sleep() {
-    this.isSleeping = true;
-  }
+console.log(y.null);
+console.log(y.undefined);
+
+
+String.prototype.show = function () {
+  console.log(this);
 };
+'Boom emgf'.show();
 
-let rabbit = {
-  name: "White Rabbit",
-  __proto__: animal
-};
-
-// модифицирует rabbit.isSleeping
-rabbit.sleep();
-animal.sleep();
-console.log(rabbit.isSleeping); // true
-console.log(animal.isSleeping); // undefined (нет такого свойства в прототипе)»
-
-animal = {
-  eats: true,
-};
-rabbit = {
-  jumps: true,
-  __proto__: animal
-};
-
-for (let prop in rabbit) {
-  let isOwn = rabbit.hasOwnProperty(prop);
-
-  if (isOwn) {
-    console.log(`our ${prop}`);
-  } else {
-    console.log(`Inherited ${prop}`);
-  }
-}
-rabbit.r = 'erty';
-console.log(Object.keys(rabbit));
-console.log(Object.values(rabbit));
-
-let head = {
-  glasses: 1
-};
-
-let table = {
-  pen: 3,
-  __proto__: head
-};
-
-let bed = {
-  sheet: 1,
-  pillow: 2,
-  __proto__: table
-};
-
-let pockets = {
-  money: 2000,
-  __proto__: bed
-};
-console.log(pockets.pen);
-
-//2
-
-let hamster = {
-  stomach: [],
-
-  eat(food) {
-    this.stomach = food;
-  }
-};
-
-let speedy = {
-  stomach: [],
-  __proto__: hamster
-};
-
-let lazy = {
-  stomach: [],
-  __proto__: hamster
-};
-
-// Этот хомяк нашёл еду
-speedy.eat("apple");
-console.log(speedy.stomach); // apple
-
-// У этого хомяка тоже есть еда. Почему? Исправьте
-console.log(lazy.stomach); // apple
-
-let animal1 = {
-  eats: true
-};
-
-function Rabbit1(name) {
-  this.name = name;
+if (!String.prototype.repeat) {
+  String.prototype.repeat = function (n) {
+    return new Array(n + 1).join(this);
+  };
 }
 
-Rabbit1.prototype = animal1;
-
-rabbit = new Rabbit1("White Rabbit");
-
-console.log(rabbit);
+console.log("ga".repeat(3));
 
 
-animal = {
-  eats: true
+console.log(null === null);
+
+let gh = {
+  0: 0,
+  1: 1,
+  2: 2,
+  3: function r() { },
+  length: 4
 };
-console.log(animal);
-function Rabbit(name) {
-  this.name = name;
-}
-console.log(Rabbit.prototype);
-Rabbit.prototype = animal;
-console.log(Rabbit);
-rabbit = new Rabbit("White Rabbit"); //  rabbit.__proto__ == animal
-
-console.log(rabbit); // true
-
-function V() { }
-let v = new V();
-console.log(v);
-console.log(v.constructor == V);
-
-function Y(name) {
-  this.name = name;
-  console.log(name);
-}
-
-let y = new Y("Kolia");
-
-let y1 = new Y("Vasia");
+console.log(Array.from(gh));
 
 
+obj = {
+  0: "Hello",
+  1: "world!",
+  length: 2
+};
+obj.join = Array.prototype.join;
 
-function Rabbit() { }
-Rabbit.prototype = {
-  eats: true
+// alert( obj.join(','));
+
+console.log(String.prototype);
+
+'ert'.show();
+let e = 'ert'.anchor('rt');
+console.log(e);
+
+console.log(Number.prototype);
+// let y3 = 4.5.toFixed(2);
+let y4 = 4.5.toExponential(5);
+console.log(y4);
+
+
+Function.prototype.defer = function (ms) {
+  let f = this;
+
+  return function (...args) {
+    setTimeout(() => f.apply(this, args), ms);
+  };
 };
 
-let rab = new Rabbit();
-console.log(rab); //
-delete rab.eats;
-// Rabbit.prototype = {};
-console.log(rab.eats);
-// Rabbit.prototype.eats = false;
-console.log(rab.eats);
+function f(a, b, c) {
+  console.log(a + b + c);
+}
 
-function R() { }
-console.log(R);
-R.prototype = {};
-obj = new R();
-console.log(constructor);
-console.log(obj);
-
-let obj2 = new obj.constructor();
-console.log(obj2);
+f.defer(2000)(2, 4, 5);
 
